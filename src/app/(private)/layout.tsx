@@ -1,13 +1,13 @@
 import React from 'react'
 import Aside from '../components/organisms/Aside'
 
-function layout() {
+function layout({ children }: { children: React.ReactNode}) {
   return (
-    <div>
+    <div className='w-full flex'>
         <Aside/>
-        <main>
-
-        </main>
+       <div className='w-full'>
+            {children}
+       </div>
     </div>
   )
 }

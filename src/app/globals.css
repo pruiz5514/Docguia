@@ -2,10 +2,14 @@
 
 
 @theme inline {
-  --color-primary: #8B7CF6;
+  --color-primary: #9269e6;
   --color-primary-100: #f5ebfe;
   --color-surface-muted: #fefbff;
 
   --color-border: #e7e8e9
 
+}
+
+button{
+  cursor: pointer;
 }

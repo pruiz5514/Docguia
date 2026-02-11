@@ -1,8 +1,11 @@
 import React from 'react'
+import CalendarPageHeader from '../components/organisms/CalendarPageHeader'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div className='w-full'>
+      <CalendarPageHeader/>
+    </div>
   )
 }
 
