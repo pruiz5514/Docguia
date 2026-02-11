@@ -2,8 +2,8 @@
 
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: #8B7CF6;
+  --color-primary-100: #f5ebfe;
+  --color-surface-muted: #fefbff;
+
 }
