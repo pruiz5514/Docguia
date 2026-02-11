@@ -3,13 +3,14 @@
 import Image from "next/image"
 import AsideButton from "../atoms/Buttons/AsideButton"
 import { Bell, Building2, Calendar, CreditCard, DollarSign, Gift, House, Puzzle, Sparkle, Users } from "lucide-react"
+import ProfileSection from "../molecules/ProfileSection"
 
 
 
 const Aside: React.FC= () => {
   return (
-    <aside className='w-63.75 min-h-screen bg-surface-muted px-5 py-6'>
-        <div className='mb-6.25'>
+    <aside className='w-67.5 min-h-screen bg-surface-muted px-5 py-6 flex flex-col border-r-2 border-border'>
+        <div className='mb-10'>
             <Image src='/images/logo.avif' alt='logo' width={130} height={100}/>
         </div>
         <nav>
@@ -32,9 +33,12 @@ const Aside: React.FC= () => {
             </ul>
         </nav>
 
-        <div className="w-full bg-primary-100 py-4 flex flex-col items-center gap-1 text-[14px] text-purple-800 rounded-2xl ">
-            <span className="flex items-center gap-2 font-bold"><Sparkle className="w-4.5 h-4.5" /> Cuenta Demo</span>
-            <span className="font-medium">Acceso ilimitado</span>
+        <div className="mt-auto">
+            <div className="w-full bg-primary-100 py-4 flex flex-col items-center gap-1 text-[14px] text-purple-800 rounded-2xl mb-5">
+                <span className="flex items-center gap-2 font-bold"><Sparkle className="w-4.5 h-4.5" /> Cuenta Demo</span>
+                <span className="font-medium">Acceso ilimitado</span>
+            </div>
+            <ProfileSection/>
         </div>
     </aside>
 
