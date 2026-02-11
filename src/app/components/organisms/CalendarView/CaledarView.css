@@ -1,0 +1,145 @@
+/* =========================================
+   LAYOUT GENERAL
+   ========================================= */
+
+.rbc-time-view {
+  border-top: 2px solid var(--color-border) !important;
+}
+
+.rbc-time-content {
+  overflow-y: auto !important;
+  border-top: none !important;
+}
+
+.rbc-calendar {
+  font-family: var(--font-geist-sans) !important;
+}
+
+
+/* =========================================
+   BORDES IZQUIERDOS
+   ========================================= */
+
+.rbc-time-view,
+.rbc-time-content,
+.rbc-time-header,
+.rbc-timeslot-group {
+  border-left: none !important;
+}
+
+
+/* =========================================
+   HEADER (fila de días)
+   ========================================= */
+
+/* Celda "Horario" (esquina superior izquierda) */
+.rbc-time-header-gutter {
+  width: 130px !important;
+  min-width: 130px !important;
+  max-width: 130px !important;
+  height: 55px !important;
+  position: relative;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 14px;
+  font-weight: 500;
+  color: #741ab4;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Texto "Horario" inyectado via CSS */
+.rbc-time-header-gutter::before {
+  content: "Horario";
+}
+
+/* Celdas de los días (Lun, Mar, etc.) */
+.rbc-time-header .rbc-header {
+  height: 55px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 500;
+  color: #741ab4;
+}
+
+
+/* =========================================
+   OCULTAR FILA ALL-DAY
+   ========================================= */
+
+.rbc-allday-cell {
+  display: none !important;
+}
+
+.rbc-row-content {
+  display: none !important;
+}
+
+
+/* =========================================
+   COLUMNA DE HORAS (gutter)
+   ========================================= */
+
+.rbc-time-gutter {
+  width: 130px !important;
+  min-width: 130px !important;
+  max-width: 130px !important;
+  display: flex;
+  flex-direction: column;
+  color: #4B5563;
+  font-weight: 500;
+  font-size: 12px;
+  background-color: var(--color-light-gray-bg);
+}
+
+/* Bloque que agrupa cada hora */
+.rbc-time-gutter .rbc-timeslot-group {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Slot interno — necesita height 100% para que el centrado funcione */
+.rbc-time-gutter .rbc-time-slot {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+}
+
+/* Texto de la hora (ej: 08:00) */
+.rbc-time-gutter .rbc-label {
+  width: 100%;
+  text-align: center !important;
+}
+
+
+/* =========================================
+   SLOTS / CELDAS DEL GRID
+   ========================================= */
+
+/* Altura de cada bloque de hora */
+.rbc-timeslot-group {
+  min-height: 70px !important;
+}
+
+/* Quita borde entre slots internos */
+.rbc-time-slot {
+  border-top: none !important;
+}
+
+/* Dia actual */
+.rbc-today {
+  background-color: transparent !important;
+}
+
+/* Hora actual */
+.rbc-current-time-indicator {
+  background-color: #ef4444 !important;
+  height: 2px !important;
+  box-shadow: 
+    0 0 4px #ef4444,
+    0 0 8px #ef4444,
+    0 0 12px #ef4444;
+}
