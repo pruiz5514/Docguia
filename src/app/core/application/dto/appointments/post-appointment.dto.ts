@@ -1,8 +1,8 @@
 export interface IPostAppointment{
-    patient: number;
+    patient: string;
     office: number;
-    date: Date;
-    time: number;
+    date: string;
+    time: string;
     services: string;
     duration: number
 }

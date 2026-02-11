@@ -121,7 +121,7 @@
 
 /* Altura de cada bloque de hora */
 .rbc-timeslot-group {
-  min-height: 70px !important;
+  min-height: 100px !important;
 }
 
 /* Quita borde entre slots internos */
@@ -142,4 +142,20 @@
     0 0 4px #ef4444,
     0 0 8px #ef4444,
     0 0 12px #ef4444;
+
+}
+
+
+.rbc-event-label {
+  display: none !important;
+}
+
+/* Evento */
+.rbc-event {
+  background-color: var(--color-primary-100) !important;
+  border: 1px solid var(--color-primary) !important;
+  border-left: 6px solid var(--color-primary) !important; 
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  padding-left: 10px !important; 
 }

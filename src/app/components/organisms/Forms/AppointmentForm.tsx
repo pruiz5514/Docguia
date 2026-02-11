@@ -10,17 +10,21 @@ import FormInput from '../../atoms/FormInput';
 import { PlusIcon } from 'lucide-react';
 import TrasnparentButton from '../../atoms/Buttons/TransparentButton';
 import MainButton from '../../atoms/Buttons/MainButton';
+import { OFFICE_OPTIONS, PATIENT_OPTIONS, SERVICE_OPTIONS } from '@/app/data/options';
+import SpinnerButton from '../../atoms/SpinnerButton';
 
 interface IAppointmentFormProps{
   closeAside?: ()=>void;
 }
 
+const APPOINTMENTS_KEY = 'appointments';
+
 export const AppointmentForm:React.FC<IAppointmentFormProps> = ({closeAside}) => {
   const schema: yup.ObjectSchema<IPostAppointment> = yup.object({
-    patient: yup.number().required('Campo requerido'),
+    patient: yup.string().required('Campo requerido'),
     office: yup.number().required('Campo requerido'),
-    date: yup.date().required('Campo requerido'),
-    time: yup.number().required('Campo requerido'),
+    date: yup.string().required('Campo requerido'),
+    time: yup.string().required('Campo requerido'),
     services: yup.string().required('Campo requerido'),
     duration: yup.number().required('Campo requerido'),
   });
@@ -41,10 +45,24 @@ export const AppointmentForm:React.FC<IAppointmentFormProps> = ({closeAside}) =>
     },
   });
 
-  const handleCreate = async(data: IPostAppointment) => {
+   const handleCreate = async(data: IPostAppointment) => {
     setLoading(true)
     try {
-      reset();
+      const existingAppointments = localStorage.getItem(APPOINTMENTS_KEY);
+      const appointments = existingAppointments ? JSON.parse(existingAppointments) : [];
+
+      const newAppointment = {
+        id: Date.now(),
+        ...data,
+        createdAt: new Date().toISOString(),
+      };
+      
+      appointments.push(newAppointment);
+      
+      localStorage.setItem(APPOINTMENTS_KEY, JSON.stringify(appointments));
+
+      window.dispatchEvent(new Event('appointmentCreated'));
+      
       if(closeAside){
         closeAside()
       }
@@ -69,11 +87,7 @@ export const AppointmentForm:React.FC<IAppointmentFormProps> = ({closeAside}) =>
                 control={control}
                 error={errors.patient}
                 isSubmitted={isSubmitted}
-                options={[
-                    { value: 1, label: 'Juan Perez' },
-                    { value: 2, label: 'Santiago Ramirez' },
-                    { value: 3, label: 'Ana Rivas' },
-                ]}
+                options={PATIENT_OPTIONS}
             />
 
             <SelectForm<IPostAppointment>
@@ -82,11 +96,7 @@ export const AppointmentForm:React.FC<IAppointmentFormProps> = ({closeAside}) =>
                 label='Consultorio'
                 placeholder='Selecciona un consultorio'
                 error={errors.office}
-                options={[
-                    { value: 1, label: 'Juan Perez' },
-                    { value: 2, label: 'Santiago Ramirez' },
-                    { value: 3, label: 'Ana Rivas' },
-                ]}
+                options={OFFICE_OPTIONS}
                 control={control}
                 vertical
                 isSubmitted={isSubmitted}
@@ -137,14 +147,10 @@ export const AppointmentForm:React.FC<IAppointmentFormProps> = ({closeAside}) =>
             <SelectForm<IPostAppointment>
                 name="services"
                 madatory
-                label='Consultorio'
-                placeholder='Selecciona un consultorio'
+                label='Servicios'
+                placeholder='Seleccionar servicios...'
                 error={errors.services}
-                options={[
-                    { value: 1, label: 'Juan Perez' },
-                    { value: 2, label: 'Santiago Ramirez' },
-                    { value: 3, label: 'Ana Rivas' },
-                ]}
+                options={SERVICE_OPTIONS}
                 control={control}
                 vertical
                 isSubmitted={isSubmitted}
@@ -159,7 +165,7 @@ export const AppointmentForm:React.FC<IAppointmentFormProps> = ({closeAside}) =>
 
         <div className='w-full border-t-2 border-border p-6 flex gap-4 mt-auto'>
             <TrasnparentButton onClick={closeAside} width='w-full'>Cancelar</TrasnparentButton>
-            <MainButton width='w-full' type='submit'>Agendar cita</MainButton>
+            <MainButton width='w-full' type='submit'>{loading ? <SpinnerButton/> : 'Agendar cita' }</MainButton>
         </div>
       </section>
       

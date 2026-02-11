@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Control, Controller, FieldError, FieldValues, Path } from 'react-hook-form'
 
 interface ComboboxOption {
-  value: number
+  value: string
   label: string
 }
 
