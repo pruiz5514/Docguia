@@ -102,6 +102,11 @@ export default function VoiceAppointmentModal({ onClose, onConfirm }: VoiceAppoi
     setEditingField(null)
   }
 
+  const isAmbiguityOptionSelected = (field: string, optionValue: any) => {
+    if (!parsedData) return false
+    return (parsedData as any)[field] === optionValue
+  }
+
   const parseLocalDateString = (dateStr: string): Date | null => {
     const [year, month, day] = dateStr.split('-').map(Number)
     if (!year || !month || !day) return null
@@ -281,15 +286,15 @@ export default function VoiceAppointmentModal({ onClose, onConfirm }: VoiceAppoi
                   <p className="text-sm font-medium text-amber-900">{amb.message}</p>
                 </div>
                 <div className="space-y-2">
-                  {amb.options!.map((option, optIdx) => (
+                  {amb.options!.map((option, idx) => (
                     <label
-                      key={optIdx}
+                      key={idx}
                       className="flex items-center gap-3 p-3 bg-white border-2 border-amber-200 rounded-lg cursor-pointer hover:border-amber-400 transition-colors"
                     >
                       <input
                         type="radio"
                         name={`ambiguity-${amb.field}-${i}`}
-                        defaultChecked={optIdx === 0}
+                        checked={isAmbiguityOptionSelected(amb.field, option.value)}
                         onChange={() => handleAmbiguityChange(amb.field, option.value)}
                         className="w-4 h-4 text-purple-600"
                       />

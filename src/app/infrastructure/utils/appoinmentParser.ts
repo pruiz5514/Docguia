@@ -313,8 +313,7 @@ export function parseAppointmentFromText(text: string): ParsedAppointment {
         ]
       })
       
-      // Heurística: asume PM si es muy temprano (1–6), si no AM
-      time = hour >= 1 && hour <= 6 ? pmTime : amTime
+      time = amTime
     } else {
       if (meridiem === 'pm' && hour < 12) hour += 12
       if (meridiem === 'am' && hour === 12) hour = 0
@@ -333,6 +332,8 @@ export function parseAppointmentFromText(text: string): ParsedAppointment {
     const hasConflict = appointments.some((apt: any) => apt.date === date && apt.time === time)
 
     if (hasConflict) {
+      const originalDateData = { ...dateData }
+      const originalDate = date
       let nextDate = addDaysToDate(dateData.year, dateData.month, dateData.day, 1)
       let foundAvailable = false
       const maxDaysToCheck = 7 // Busca disponibilidad hasta 7 días adelante
@@ -343,17 +344,21 @@ export function parseAppointmentFromText(text: string): ParsedAppointment {
         
         if (!hasConflictOnDay) {
           foundAvailable = true
+          // Deja seleccionada por defecto la primera fecha disponible.
+          dateData = nextDate
+          date = checkDate
+
           ambiguities.push({
             field: 'date',
-            message: `Ya hay una cita el ${formatDateSpanish(dateData.year, dateData.month, dateData.day)} a las ${time}. ¿Quieres agendarla en otro día?`,
+            message: `Ya hay una cita el ${formatDateSpanish(originalDateData.year, originalDateData.month, originalDateData.day)} a las ${time}. ¿Quieres agendarla en otro día?`,
             options: [
               { 
                 label: `${formatDateSpanish(nextDate.year, nextDate.month, nextDate.day)} a las ${time}`, 
                 value: checkDate 
               },
               { 
-                label: `Mantener fecha original (${formatDateSpanish(dateData.year, dateData.month, dateData.day)})`, 
-                value: date 
+                label: `Mantener fecha original (${formatDateSpanish(originalDateData.year, originalDateData.month, originalDateData.day)})`, 
+                value: originalDate 
               }
             ]
           })
