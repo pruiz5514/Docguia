@@ -243,7 +243,7 @@ export function parseAppointmentFromText(text: string): ParsedAppointment {
   let time = '09:00'
   let dateFound = false
 
-  // Parser propio para expresiones relativas como "mañana", "pasado mañana", etc.
+  // Parser propio para expresiones relativas como "mañana", etc.
   const temporalDate = parseTemporalExpression(text)
   if (temporalDate) {
     dateData = temporalDate
