@@ -47,11 +47,31 @@ Aplicación web para agendar citas médicas/manuales con dos flujos:
 - Fechas en hora local:
   - se normaliza el manejo de `YYYY-MM-DD` sin depender de conversiones UTC para evitar desfases de día.
 
-## Scripts
+
+## Instalación y ejecución
+
+### 1. Clonar repositorio
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd doc_guia
+```
+
+### 2. Instalar dependencias
+
+```bash
+npm install
+```
+
+### 3. Ejecutar en desarrollo
 
 ```bash
 npm run dev
-npm run build
-npm run start
-npm run lint
 ```
+
+Abrir en navegador:
+
+```bash
+http://localhost:3000
+```
+
