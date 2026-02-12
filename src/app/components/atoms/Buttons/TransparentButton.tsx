@@ -9,7 +9,7 @@ interface ITrasnparentButtonProps{
 
 const TrasnparentButton:React.FC<ITrasnparentButtonProps> = ({children, onClick, width='w-auto', type="button"}) => {
   return (
-    <button type={type} className={`px-5 py-3 bg-transparent border border-border rounded-2xl flex items-center justify-center gap-1 text-purple-800 font-semibold ${width}`} onClick={onClick}>
+    <button type={type} className={`px-5 py-3 bg-transparent border border-border rounded-2xl flex items-center justify-center gap-2 text-purple-800 font-semibold ${width}`} onClick={onClick}>
         {children}
     </button>
   )

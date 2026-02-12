@@ -1,9 +1,10 @@
 "use client"
 
-import { Info, PanelRightClose, Plus } from 'lucide-react'
+import { Info, Mic, PanelRightClose, Plus } from 'lucide-react'
 import React, { useState } from 'react'
 import MainButton from '../atoms/Buttons/MainButton'
 import AppointmentFormAside from '../organisms/AppointmentFormAside';
+import TrasnparentButton from '../atoms/Buttons/TransparentButton';
 
 const FirstCalendarPageHeaderSection = () => {
   const [openAppointmentForm, setOpenAppointmentForm] = useState(false);
@@ -16,7 +17,11 @@ const FirstCalendarPageHeaderSection = () => {
                 <h1 className='text-xl text-gray-600 font-semibold'>Calendario</h1>
                 <span className='flex items-center gap-1 text-base text-purple-800 cursor-pointer'><Info className="w-4 h-4"/> ¿Cómo funciona?</span>
             </div>
-            <MainButton onClick={()=>setOpenAppointmentForm(true)}>Agendar Cita <Plus /></MainButton>
+            <div className='flex gap-3'>
+              <TrasnparentButton>Agendar cita por voz <Mic /></TrasnparentButton>
+              <MainButton onClick={()=>setOpenAppointmentForm(true)}>Agendar Cita <Plus /></MainButton>
+            </div>
+            
         </section>
 
         {openAppointmentForm && <AppointmentFormAside closeAside={()=>setOpenAppointmentForm(false)}/>}
