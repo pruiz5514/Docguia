@@ -1,7 +1,9 @@
 export const PATIENT_OPTIONS = [
-  { value: 'Juan Perez', label: 'Juan Perez' },
-  { value: 'Santiago Ramirez', label: 'Santiago Ramirez' },
-  { value: 'Ana Rivas', label: 'Ana Rivas' },
+  { value: 'María Pérez', label: 'María Pérez' },
+  { value: 'Juan', label: 'Juan' },
+  { value: 'Carlos', label: 'Carlos' },
+  { value: 'Ana', label: 'Ana' },
+  { value: 'Pedro', label: 'Pedro' },
 ];
 
 export const OFFICE_OPTIONS = [
@@ -13,5 +15,5 @@ export const OFFICE_OPTIONS = [
 export const SERVICE_OPTIONS = [
   { value: 'consulta', label: 'Consulta general' },
   { value: 'control', label: 'Control' },
-  { value: 'limpieza', label: 'Limpieza dental' },
 ];
+

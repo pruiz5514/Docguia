@@ -1,6 +1,8 @@
 import React from 'react'
 import DateRangeNavegator from './DateRangeNavegator'
 import ViewSwitcher from './ViewSwitcher'
+import FilterButton from '../atoms/Buttons/FilterButton'
+import { ChevronDown, Funnel } from 'lucide-react'
 
 const SecondCalendarPageHeaderSection = () => {
   return (
@@ -17,8 +19,13 @@ const SecondCalendarPageHeaderSection = () => {
         <ViewSwitcher/>
       </div>
 
-      <div className="flex justify-end">
-        filtros
+      <div className="flex gap-5 justify-end">
+        <FilterButton>
+          <div className='w-2 h-2 rounded-full bg-primary'/>
+          Todos los consultorios <ChevronDown />
+        </FilterButton>
+
+         <FilterButton><Funnel /> Filtros</FilterButton>
       </div>
 
     </section>

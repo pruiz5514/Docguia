@@ -19,6 +19,27 @@ interface IAppointmentFormProps{
 
 const APPOINTMENTS_KEY = 'appointments';
 
+const formatDateToLocalString = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+const normalizeAppointmentDate = (dateValue: unknown): string => {
+  if (typeof dateValue === 'string') {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) return dateValue;
+    const parsedDate = new Date(dateValue);
+    return Number.isNaN(parsedDate.getTime()) ? '' : formatDateToLocalString(parsedDate);
+  }
+
+  if (dateValue instanceof Date) {
+    return Number.isNaN(dateValue.getTime()) ? '' : formatDateToLocalString(dateValue);
+  }
+
+  return '';
+}
+
 export const AppointmentForm:React.FC<IAppointmentFormProps> = ({closeAside}) => {
   const schema: yup.ObjectSchema<IPostAppointment> = yup.object({
     patient: yup.string().required('Campo requerido'),
@@ -51,9 +72,7 @@ export const AppointmentForm:React.FC<IAppointmentFormProps> = ({closeAside}) =>
       const existingAppointments = localStorage.getItem(APPOINTMENTS_KEY);
       const appointments = existingAppointments ? JSON.parse(existingAppointments) : [];
 
-      const dateString = typeof data.date === 'string' && data.date.includes('GMT')
-        ? new Date(data.date).toISOString().split('T')[0] 
-        : data.date;
+      const dateString = normalizeAppointmentDate(data.date);
 
       const newAppointment = {
         id: Date.now(),
