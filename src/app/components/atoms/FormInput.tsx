@@ -42,10 +42,33 @@ const FormInput = <T extends FieldValues>({
   vertical = false,
   width= 'w-full'
 }: IFormInputProps<T>) => {
-  const today = new Date().toISOString().split('T')[0]
+  const formatDateToLocalString = (date: Date): string => {
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
+  }
+
+  const normalizeDateValue = (value: unknown): string => {
+    if (!value) return ''
+
+    if (typeof value === 'string') {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value
+      const parsed = new Date(value)
+      return Number.isNaN(parsed.getTime()) ? '' : formatDateToLocalString(parsed)
+    }
+
+    if (value instanceof Date) {
+      return Number.isNaN(value.getTime()) ? '' : formatDateToLocalString(value)
+    }
+
+    return ''
+  }
+
+  const today = formatDateToLocalString(new Date())
   const tomorrow = new Date()
   tomorrow.setDate(new Date().getDate() + 1)
-  const tomorrowStr = tomorrow.toISOString().split('T')[0]
+  const tomorrowStr = formatDateToLocalString(tomorrow)
 
   const min =
     type === 'date' && minAfterToday === true
@@ -92,15 +115,13 @@ const FormInput = <T extends FieldValues>({
               max={max}
               value={
                 type === 'date'
-                  ? field.value
-                    ? new Date(field.value).toISOString().split('T')[0]
-                    : ''
+                  ? normalizeDateValue(field.value)
                   : field.value ?? ''
               }
               onChange={(e) => {
                 const val = e.target.value
                 if (type === 'date') {
-                  field.onChange(val ? new Date(val) : undefined)
+                  field.onChange(val || '')
                 } else {
                   field.onChange(val)
                 }

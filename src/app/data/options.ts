@@ -13,5 +13,4 @@ export const OFFICE_OPTIONS = [
 export const SERVICE_OPTIONS = [
   { value: 'consulta', label: 'Consulta general' },
   { value: 'control', label: 'Control' },
-  { value: 'limpieza', label: 'Limpieza dental' },
 ];
