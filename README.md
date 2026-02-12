@@ -53,7 +53,7 @@ Aplicación web para agendar citas médicas/manuales con dos flujos:
 ### 1. Clonar repositorio
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/pruiz5514/Docguia.git
 cd doc_guia
 ```
 
