@@ -45,22 +45,25 @@ export const AppointmentForm:React.FC<IAppointmentFormProps> = ({closeAside}) =>
     },
   });
 
-   const handleCreate = async(data: IPostAppointment) => {
+  const handleCreate = async(data: IPostAppointment) => {
     setLoading(true)
     try {
       const existingAppointments = localStorage.getItem(APPOINTMENTS_KEY);
       const appointments = existingAppointments ? JSON.parse(existingAppointments) : [];
 
+      const dateString = typeof data.date === 'string' && data.date.includes('GMT')
+        ? new Date(data.date).toISOString().split('T')[0] 
+        : data.date;
+
       const newAppointment = {
         id: Date.now(),
         ...data,
+        date: dateString,
         createdAt: new Date().toISOString(),
       };
       
       appointments.push(newAppointment);
-      
       localStorage.setItem(APPOINTMENTS_KEY, JSON.stringify(appointments));
-
       window.dispatchEvent(new Event('appointmentCreated'));
       
       if(closeAside){

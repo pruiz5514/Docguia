@@ -37,9 +37,10 @@ export default function CalendarView() {
       const appointments = JSON.parse(storedAppointments)
       
       const calendarEvents: ICalendarEvent[] = appointments.map((apt: any) => {
-        const [hours, minutes] = apt.time.split(':')
-        const startDate = new Date(apt.date)
-        startDate.setHours(parseInt(hours), parseInt(minutes), 0)
+        const [year, month, day] = apt.date.split('-').map(Number)
+        const [hours, minutes] = apt.time.split(':').map(Number)
+         
+        const startDate = new Date(year, month - 1, day, hours, minutes, 0)
         const endDate = addMinutes(startDate, apt.duration)
 
         return {
@@ -52,6 +53,7 @@ export default function CalendarView() {
 
       setEvents(calendarEvents)
     }
+    
     loadEvents()
 
     const handleStorageChange = () => {
