@@ -3,11 +3,12 @@
 import './CaledarView.css'
 import { Calendar, dateFnsLocalizer, Views } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { format, parse, startOfWeek, getDay, addMinutes } from 'date-fns'
+import { format, parse, startOfWeek, getDay, addMinutes, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { CustomDayHeader } from '../../atoms/CustomDayHeader'
 import { useEffect, useState } from 'react'
 import CustomCalendarEvent from '../../atoms/CustomCalendarEvent'
+import { useSearchParams } from 'next/navigation'
 
 const localizer = dateFnsLocalizer({
   format,
@@ -28,6 +29,12 @@ const APPOINTMENTS_KEY = 'appointments'
 
 export default function CalendarView() {
   const [events, setEvents] = useState<ICalendarEvent[]>([])
+  const searchParams = useSearchParams()
+  
+  const getCurrentDate = () => {
+    const dateParam = searchParams.get('date')
+    return dateParam ? parseISO(dateParam) : new Date()
+  }
 
   useEffect(() => {
     const loadEvents = () => {
@@ -80,6 +87,8 @@ export default function CalendarView() {
         step={60}
         timeslots={1}
         toolbar={false}
+        date={getCurrentDate()}
+        onNavigate={() => {}}
         components={{
           header: CustomDayHeader,
           event: CustomCalendarEvent,
