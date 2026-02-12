@@ -1,13 +1,18 @@
 import React from 'react'
+import { Suspense } from 'react'
 import CalendarPageHeader from '../components/organisms/CalendarPageHeader'
 import CalendarView from '../components/organisms/CalendarView/CalendarView'
 
 const page = () => {
   return (
     <div className='w-full'>
-      <CalendarPageHeader/>
+      <Suspense fallback={null}>
+        <CalendarPageHeader/>
+      </Suspense>
 
-      <CalendarView/>
+      <Suspense fallback={null}>
+        <CalendarView/>
+      </Suspense>
     </div>
   )
 }
